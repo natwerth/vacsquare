@@ -1,0 +1,447 @@
+<!-- Dark Gloss Theme · Hero + Specs + Tutorial Strip -->
+<section class="vs-theme-dark-gloss" data-vs-theme="dark-gloss" aria-label="Dark Gloss Experience">
+  <style>
+    /* =============================
+       Dark Gloss Theme (scoped)
+       ============================= */
+    .vs-theme-dark-gloss {
+      /* Palette */
+      --dg-bg: #0b0f14;
+      --dg-surface: #0e131a;
+      --dg-elev-1: #101720;
+      --dg-ink: #eef2f7;
+      --dg-ink-muted: #9aa4b2;
+      --dg-line: rgba(255,255,255,0.08);
+      --dg-line-strong: rgba(255,255,255,0.16);
+      --dg-accent: #60a5fa;          /* pick one accent and stick to it */
+      --dg-accent-ink: #091120;
+
+      /* Effects */
+      --dg-glass: rgba(13,18,25,0.55);
+      --dg-glass-strong: rgba(13,18,25,0.75);
+      --dg-blur: 10;                 /* px, adjusted on scroll via JS */
+      --dg-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='0.035'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      --dg-vignette: radial-gradient(120% 120% at 50% -10%, rgba(255,255,255,0.06) 0 30%, rgba(0,0,0,0) 30% 60%, rgba(0,0,0,0.45) 100%);
+
+      /* Layout */
+      --dg-gap: 16px; --dg-gap-lg: 28px; --dg-gap-xl: 48px;
+      --dg-maxw: 1180px;
+      --dg-radius: 8px;
+      --dg-header-offset: clamp(68px, 4vw, 40px);
+
+      color: var(--dg-ink);
+      background: var(--dg-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color-scheme: dark;
+    }
+
+    /* Reset corners and shadows in-scope to keep surfaces crisp */
+    .vs-theme-dark-gloss :where(*, *::before, *::after) {
+      box-shadow: none;
+    }
+
+    .dg-wrap {
+      position: relative;
+      min-height: 100dvh;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.025), rgba(255,255,255,0) 40%),
+        var(--dg-vignette),
+        linear-gradient(180deg, #0b0f14, #0a0d12 60%, #0b0f14);
+      isolation: isolate;
+      overflow: clip;
+    }
+
+    /* ============ Header (floating smoky glass, sticky) ============ */
+    .dg-header {
+      position: fixed; top: var(--dg-header-offset); left: 50%; transform: translateX(-50%);
+      z-index: 50;
+      width: min(var(--dg-maxw), 100% - clamp(16px, 6vw, 48px));
+      padding: 10px 14px;
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
+      border: 1px solid var(--dg-line-strong);
+      background: var(--dg-glass);
+      -webkit-backdrop-filter: blur(calc(var(--dg-blur) * 1px));
+      backdrop-filter: blur(calc(var(--dg-blur) * 1px));
+      border-radius: var(--dg-radius);
+    }
+    /* smoky halo */
+    .dg-header::before {
+      content: ""; position: absolute; inset: -12px -12px; z-index: -1;
+      pointer-events: none;
+      background:
+        radial-gradient(60% 140% at 50% -30%, rgba(255,255,255,0.07), transparent 60%),
+        radial-gradient(120% 80% at 50% 120%, rgba(0,0,0,0.6), transparent 60%);
+      mask-image: radial-gradient(80% 100% at 50% 45%, rgba(0,0,0,1), rgba(0,0,0,0.2) 70%, transparent);
+    }
+    /* anti-plastic microtexture */
+    .dg-header::after {
+      content: ""; position: absolute; inset: 0; border-radius: inherit;
+      background: var(--dg-noise);
+      mix-blend-mode: overlay; opacity: .3; pointer-events: none;
+    }
+
+    .dg-brand { display: flex; align-items: center; gap: 10px; font: 700 14px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .02em; }
+    .dg-brand-dot { width: 10px; height: 10px; background: var(--dg-accent); border-radius: 50%; box-shadow: 0 0 0 3px rgba(96,165,250,0.2); }
+    .dg-nav { display: flex; gap: 8px; }
+    .dg-pill {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 14px; font: 600 12px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .08em; text-transform: uppercase;
+      border: 1px solid var(--dg-line-strong);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: var(--dg-ink); text-decoration: none; border-radius: calc(var(--dg-radius) - 2px);
+      position: relative; overflow: hidden;
+    }
+    .dg-pill::after {
+      content: ""; position: absolute; inset: -100% -60% auto -60%; height: 200%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.25) 50%, transparent 100%);
+      transform: translateX(-40%); transition: transform .6s linear;
+      pointer-events: none;
+    }
+    .dg-pill:hover::after { transform: translateX(40%); }
+    .dg-pill:focus-visible { outline: 2px solid var(--dg-accent); outline-offset: 2px; }
+
+    .dg-main {
+      max-width: var(--dg-maxw);
+      margin: 0 auto 0;
+      padding: var(--dg-header-spacer, 64px) clamp(16px, 3vw, 24px) clamp(40px, 6vw, 72px);
+    }
+
+    .vs-theme-dark-gloss :where([id]) { scroll-margin-top: calc(var(--dg-header-spacer, 64px) + 12px); }
+
+    /* ============ HERO ============ */
+    .dg-hero {
+      position: relative; z-index: 0;
+      display: grid; gap: var(--dg-gap-xl);
+      grid-template-columns: 1fr; align-items: center;
+      padding: clamp(18px, 2.2vw, 24px);
+      border: 1px solid var(--dg-line-strong);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0) 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0) 100%),
+        var(--dg-surface);
+      border-radius: var(--dg-radius);
+      overflow: clip;
+    }
+    @media (min-width: 1000px) { .dg-hero { grid-template-columns: 1.05fr 0.95fr; } }
+
+    .dg-eyebrow { font: 700 12px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--dg-ink-muted); }
+    .dg-h1 { font: 800 clamp(28px, 5.5vw, 54px)/1.02 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: -.01em; margin: 6px 0 10px; }
+    .dg-sub { font: 400 clamp(15px, 2.2vw, 18px)/1.6 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; color: var(--dg-ink-muted); }
+
+    .dg-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--dg-gap-lg); }
+    .dg-btn {
+      position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      padding: 14px 18px; border-radius: calc(var(--dg-radius) - 2px);
+      font: 700 14px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .02em;
+      color: var(--dg-ink); text-decoration: none; cursor: pointer;
+      border: 1px solid var(--dg-line-strong);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      overflow: hidden;
+    }
+    .dg-btn[data-variant="primary"] {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02)),
+        linear-gradient(180deg, color-mix(in oklab, var(--dg-accent) 92%, white 8%), color-mix(in oklab, var(--dg-accent) 60%, black 40%));
+      border-color: color-mix(in oklab, var(--dg-accent) 60%, white 40%);
+      color: var(--dg-accent-ink);
+    }
+    .dg-btn::after {
+      content: ""; position: absolute; inset: -150% -100% auto -100%; height: 320%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+      transform: translateX(-40%); transition: transform .8s linear;
+      pointer-events: none; opacity: .7;
+    }
+    .dg-btn:hover::after { transform: translateX(40%); }
+    .dg-btn:focus-visible { outline: 2px solid var(--dg-accent); outline-offset: 2px; }
+
+    /* Hero visual with subtle chrome edge and spec labels */
+    .dg-visual {
+      position: relative; border: 1px solid var(--dg-line-strong); border-radius: var(--dg-radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01)),
+        radial-gradient(120% 140% at 50% -30%, rgba(255,255,255,0.10), rgba(255,255,255,0) 55%),
+        linear-gradient(180deg, #0f1620, #0b0f14);
+      min-height: clamp(280px, 48vh, 560px);
+      overflow: hidden;
+    }
+    .dg-visual::before {
+      content: ""; position: absolute; inset: 0;
+      background: var(--dg-noise); mix-blend-mode: overlay; opacity: .2; pointer-events: none;
+    }
+    .dg-product {
+      position: absolute; inset: 12% 12% 14% 16%;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.4), rgba(255,255,255,0.06) 30%, rgba(0,0,0,0.5)),
+        linear-gradient(90deg, #0c1117, #0e141b);
+      border: 1px solid rgba(255,255,255,0.1); border-radius: 2px;
+      transform-style: preserve-3d; will-change: transform;
+    }
+    .dg-edge { position: absolute; inset: 0; pointer-events: none; }
+    .dg-edge::before, .dg-edge::after {
+      content: ""; position: absolute; inset: -1px; border-radius: 2px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.20), transparent 35% 65%, rgba(255,255,255,0.10));
+      mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      -webkit-mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      padding: 1px; -webkit-mask-composite: xor; mask-composite: exclude; opacity: .6;
+    }
+
+    /* Spec callouts */
+    .dg-callout { position: absolute; color: var(--dg-ink); font: 600 11px/1.2 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .04em; }
+    .dg-callout::before {
+      content: ""; position: absolute; width: 28px; height: 1px; background: var(--dg-ink); top: 50%; translate: -34px -50%;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+    }
+    .dg-callout[data-pos="tl"] { top: 14%; left: 6%; transform: translateY(-6px); }
+    .dg-callout[data-pos="tr"] { top: 22%; right: 6%; }
+    .dg-callout[data-pos="bl"] { bottom: 16%; left: 8%; }
+
+    /* ============ SPECS ============ */
+    .dg-specs { margin-top: clamp(28px, 4vw, 56px); }
+    .dg-sec-h { font: 800 clamp(22px, 3.6vw, 32px)/1.1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; margin: 0 0 14px; }
+    .dg-specgrid {
+      display: grid; gap: var(--dg-gap);
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 960px){ .dg-specgrid { grid-template-columns: repeat(4, 1fr); } }
+
+    .dg-speccard {
+      position: relative; border-radius: var(--dg-radius);
+      padding: 16px 16px 18px; border: 1px solid var(--dg-line-strong);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015)),
+        linear-gradient(180deg, #0f1620, #0b0f14);
+      overflow: hidden;
+    }
+    .dg-speccard::after {
+      content: ""; position: absolute; inset: -100% -80% auto -80%; height: 260%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%);
+      animation: dg-sweep 22s linear infinite; opacity: .55;
+    }
+    @keyframes dg-sweep { 0% { transform: translateX(-40%);} 100% { transform: translateX(40%);} }
+
+    .dg-speclabel { font: 700 11px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--dg-ink-muted); margin-bottom: 8px; }
+    .dg-specvalue { font: 800 20px/1.1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; letter-spacing: -.01em; }
+    .dg-specnote { margin-top: 8px; font: 500 12px/1.4 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; color: var(--dg-ink-muted); }
+
+    /* ============ TUTORIAL STRIP ============ */
+    .dg-tutorial { margin-top: clamp(32px, 5vw, 72px); }
+    .dg-stepsbar {
+      position: relative; height: 3px; margin: 0 0 18px; background: var(--dg-line);
+      border-radius: 999px; overflow: hidden;
+    }
+    .dg-stepsbar::after {
+      content: ""; position: absolute; inset: 0; transform: scaleX(.33); transform-origin: left;
+      background: linear-gradient(90deg, var(--dg-accent), color-mix(in oklab, var(--dg-accent) 65%, white 35%));
+    }
+    .dg-steps { display: grid; gap: var(--dg-gap); grid-template-columns: 1fr; }
+    @media (min-width: 900px){ .dg-steps { grid-template-columns: repeat(3, 1fr); } }
+
+    .dg-step {
+      border: 1px solid var(--dg-line-strong); border-radius: var(--dg-radius);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015)),
+        linear-gradient(180deg, #0f1620, #0b0f14);
+      overflow: hidden;
+    }
+    .dg-stephead { display: flex; align-items: center; gap: 10px; padding: 14px 14px 0; }
+    .dg-num {
+      width: 28px; height: 28px; border-radius: 4px; display: grid; place-items: center;
+      background: linear-gradient(180deg, color-mix(in oklab, var(--dg-accent) 85%, white 15%), color-mix(in oklab, var(--dg-accent) 50%, black 50%));
+      color: var(--dg-accent-ink); font: 800 14px/1 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif;
+      border: 1px solid color-mix(in oklab, var(--dg-accent) 70%, white 30%);
+    }
+    .dg-step h4 { font: 800 16px/1.2 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; margin: 0; }
+    .dg-step p { color: var(--dg-ink-muted); font: 500 13px/1.5 system-ui, -apple-system, Segoe UI, Inter, Roboto, sans-serif; margin: 6px 14px 12px; }
+
+    .dg-thumb {
+      aspect-ratio: 16/9; margin: 0 14px 14px; border-radius: 4px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.5), transparent 50%),
+        linear-gradient(120deg, #0f1620, #0b0f14);
+      border: 1px solid rgba(255,255,255,0.12); position: relative; overflow: hidden;
+    }
+    .dg-thumb::after {
+      content: ""; position: absolute; inset: -120% -80% auto -80%; height: 260%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.22) 50%, transparent 100%);
+      animation: dg-sweep 28s linear infinite; opacity: .45;
+    }
+
+    /* Accessibility */
+    .vs-theme-dark-gloss :where(a, button, [tabindex]) { outline: none; }
+    .vs-theme-dark-gloss :where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--dg-accent); outline-offset: 2px; }
+    @media (prefers-reduced-motion: reduce) {
+      .dg-btn::after, .dg-speccard::after, .dg-thumb::after { animation: none !important; }
+    }
+  </style>
+
+  <div class="dg-wrap">
+    <!-- Floating glass header -->
+    <header class="dg-header" role="navigation" aria-label="Primary">
+      <div class="dg-brand">
+        <span class="dg-brand-dot" aria-hidden="true"></span>
+        Vac&nbsp;Square
+      </div>
+      <nav class="dg-nav" aria-label="Sections">
+        <a class="dg-pill" href="#specs">Specs</a>
+        <a class="dg-pill" href="#tutorials">Tutorials</a>
+        <a class="dg-pill" href="/shop">Shop</a>
+      </nav>
+    </header>
+
+    <main class="dg-main">
+      <!-- HERO -->
+      <section class="dg-hero" aria-label="Vacbed Hero">
+        <div>
+          <div class="dg-eyebrow">Vacbeds</div>
+          <h1 class="dg-h1">Built right.</h1>
+          <p class="dg-sub">Rigid PVC frame, machine-washable bag, air-tight port. Tool-free assembly that will take your breath away!</p>
+
+          <div class="dg-cta-row">
+            <a class="dg-btn" data-variant="primary" href="/shop">Shop vacbeds</a>
+            <a class="dg-btn" href="/tutorials">Setup tutorials</a>
+            <a class="dg-btn" href="/customdesigns">Custom designs</a>
+          </div>
+        </div>
+
+        <figure class="dg-visual" role="img" aria-label="Vacbed macro product mock">
+          <div class="dg-product" aria-hidden="true">
+            <i class="dg-edge"></i>
+          </div>
+
+          <!-- Spec callouts -->
+          <figcaption class="dg-callout" data-pos="tl">Snap-fit corners</figcaption>
+          <figcaption class="dg-callout" data-pos="tr">0.5 mm washable bag</figcaption>
+          <figcaption class="dg-callout" data-pos="bl">40 mm universal port</figcaption>
+        </figure>
+      </section>
+
+      <!-- SPECS -->
+      <section class="dg-specs" id="specs" aria-label="Specifications">
+        <h2 class="dg-sec-h">Specifications</h2>
+        <div class="dg-specgrid">
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Frame</div>
+            <div class="dg-specvalue">PVC, snap-fit</div>
+            <div class="dg-specnote">Tool-free assembly</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Bag</div>
+            <div class="dg-specvalue">, 0.5&nbsp;mm</div>
+            <div class="dg-specnote">Airtight seal</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Port</div>
+            <div class="dg-specvalue">38&nbsp;mm universal</div>
+            <div class="dg-specnote">Standard fittings</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Sizes</div>
+            <div class="dg-specvalue">S / M / L</div>
+            <div class="dg-specnote">Custom on request</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Finish</div>
+            <div class="dg-specvalue">Wipe-clean</div>
+            <div class="dg-specnote">Low maintenance</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Warranty</div>
+            <div class="dg-specvalue">12 months</div>
+            <div class="dg-specnote">Limited parts</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Shipping</div>
+            <div class="dg-specvalue">Flat-pack</div>
+            <div class="dg-specnote">Lower cost</div>
+          </article>
+          <article class="dg-speccard">
+            <div class="dg-speclabel">Support</div>
+            <div class="dg-specvalue">Email &amp; video</div>
+            <div class="dg-specnote">Setup assistance</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- TUTORIAL STRIP -->
+      <section class="dg-tutorial" id="tutorials" aria-label="Tutorials">
+        <h2 class="dg-sec-h">Setup tutorials</h2>
+        <div class="dg-stepsbar" aria-hidden="true"></div>
+        <div class="dg-steps">
+          <article class="dg-step">
+            <div class="dg-stephead"><div class="dg-num">1</div><h4>Assemble the frame</h4></div>
+            <p>Snap corners into place on a flat surface. Confirm squareness before mounting the bag.</p>
+            <div class="dg-thumb" aria-hidden="true"></div>
+          </article>
+          <article class="dg-step">
+            <div class="dg-stephead"><div class="dg-num">2</div><h4>Fit the bag</h4></div>
+            <p>Slide the bag over the frame evenly. Check gasket alignment around the port.</p>
+            <div class="dg-thumb" aria-hidden="true"></div>
+          </article>
+          <article class="dg-step">
+            <div class="dg-stephead"><div class="dg-num">3</div><h4>Seal and test</h4></div>
+            <p>Connect to vacuum source and test for leaks at seams and port cap before full use.</p>
+            <div class="dg-thumb" aria-hidden="true"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.currentScript.closest('.vs-theme-dark-gloss');
+      if (!root) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* Dynamic blur intensity for header as page scrolls */
+      const header = root.querySelector('.dg-header');
+
+      // Compute spacer equal to header height plus offset so content doesn't hide under the fixed bar
+      const setSpacer = () => {
+        const h = header ? Math.ceil(header.getBoundingClientRect().height) : 0;
+        const cs = header ? getComputedStyle(header) : null;
+        const offset = cs ? parseFloat(cs.top) || 0 : 0; // includes clamp-resolved px value
+        root.style.setProperty('--dg-header-spacer', `${h + offset + 12}px`);
+      };
+      setSpacer();
+      window.addEventListener('resize', setSpacer);
+      window.addEventListener('load', setSpacer);
+
+      let rafId = null;
+      const onScroll = () => {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          const y = window.scrollY || document.documentElement.scrollTop || 0;
+          const t = Math.min(1, y / 240);
+          root.style.setProperty('--dg-blur', (10 + t * 6).toFixed(2));
+          rafId = null;
+        });
+      };
+      document.addEventListener('scroll', onScroll, { passive: true });
+
+      /* Subtle parallax tilt for hero product block */
+      if (!prefersReduced) {
+        const product = root.querySelector('.dg-product');
+        const visual = root.querySelector('.dg-visual');
+        if (product && visual) {
+          let rect = null;
+          const updateRect = () => { rect = visual.getBoundingClientRect(); };
+          updateRect(); window.addEventListener('resize', updateRect);
+
+          const clamp = (n, min, max) => Math.max(min, Math.min(n, max));
+          visual.addEventListener('pointermove', (e) => {
+            if (!rect) return;
+            const x = (e.clientX - rect.left) / rect.width - 0.5;
+            const y = (e.clientY - rect.top) / rect.height - 0.5;
+            product.style.transform = `rotateX(${clamp(-y * 4, -4, 4)}deg) rotateY(${clamp(x * 6, -6, 6)}deg) translateZ(0)`;
+          });
+          visual.addEventListener('pointerleave', () => {
+            product.style.transform = 'rotateX(0deg) rotateY(0deg)';
+          });
+        }
+      }
+    })();
+  </script>
+</section>

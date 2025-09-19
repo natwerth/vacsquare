@@ -1,0 +1,148 @@
+
+
+<!-- Pastel Corporate Theme · Vacbeds Hero Partial -->
+<section class="vs-theme-pastel-corp" data-vs-theme="pastel-corp" aria-label="Vacbeds hero">
+  <style>
+    /* =============================
+       Pastel Corporate Theme (scoped)
+       ============================= */
+    .vs-theme-pastel-corp {
+      /* Palette: light pastels + strong ink for accessibility */
+      --pc-ink: #0f172a;         /* slate-900 */
+      --pc-ink-muted: #334155;   /* slate-600 */
+      --pc-page: #f7f9fc;        /* near-white */
+      --pc-card: #ffffff;        /* white */
+      --pc-mint: #c8f2e4;
+      --pc-lilac: #e6d9ff;
+      --pc-sky: #d8eafe;
+      --pc-apricot: #ffe1c7;
+      --pc-line: #e5e7eb;        /* divider */
+      --pc-focus: #2563eb;       /* accessible blue */
+      --pc-gap: 16px;            /* spacing scale */
+      --pc-gap-lg: 28px;
+      --pc-gap-xl: 48px;
+      --pc-maxw: 1120px;
+      --pc-btn-ink: #0b1221;
+      --pc-btn-bg: #eff6ff;
+      --pc-btn-bg-hover: #dbeafe;
+
+      color: var(--pc-ink);
+      background: var(--pc-page);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color-scheme: light;
+    }
+
+    /* Sharp corners everywhere in this scope */
+    .vs-theme-pastel-corp :where(*, *::before, *::after) {
+      border-radius: 0 !important;
+      box-shadow: none;
+    }
+
+    .vs-vacbeds-hero {
+      position: relative;
+      min-height: 100dvh;
+      display: grid;
+      place-items: stretch;
+      overflow: clip;
+      isolation: isolate;
+    }
+
+    /* Bold color blocking background */
+    .vs-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(90deg,
+          var(--pc-mint) 0 25%,
+          var(--pc-lilac) 25% 50%,
+          var(--pc-sky) 50% 75%,
+          var(--pc-apricot) 75% 100%);
+    }
+
+    /* Layout */
+    .vs-hero-layout {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--pc-gap-xl);
+      max-width: var(--pc-maxw);
+      margin: 0 auto;
+      padding: clamp(24px, 4vw, 48px);
+    }
+
+    @media (min-width: 880px) {
+      .vs-hero-layout { grid-template-columns: 1.05fr 0.95fr; align-items: stretch; }
+    }
+
+    /* Carded content area sitting on top of the blocks */
+    .vs-hero-card {
+      background: var(--pc-card);
+      border: 1px solid var(--pc-line);
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: var(--pc-gap);
+      padding: clamp(20px, 3vw, 28px);
+    }
+
+    .vs-eyebrow { font: 600 12px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: var(--pc-ink-muted); }
+
+    .vs-title { font: 800 clamp(28px, 5vw, 48px)/1.05 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; letter-spacing: -.01em; margin: 2px 0 0; }
+
+    .vs-sub { font: 400 clamp(16px, 2.2vw, 20px)/1.5 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; color: var(--pc-ink-muted); }
+
+    .vs-points { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .vs-points li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: start; }
+    .vs-points li::before { content: "✓"; font-weight: 700; color: var(--pc-ink); }
+
+    .vs-cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--pc-gap-lg); }
+    .vs-btn { appearance: none; border: 1px solid var(--pc-ink); background: var(--pc-btn-bg); color: var(--pc-btn-ink); font: 700 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; padding: 14px 18px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; }
+    .vs-btn:hover { background: var(--pc-btn-bg-hover); }
+    .vs-btn[aria-current="page"] { background: var(--pc-ink); color: #fff; }
+
+    /* Media block: sharp, simple image placeholder */
+    .vs-hero-media {
+      background: linear-gradient(180deg, #ffffff 0 40%, rgba(255,255,255,0) 40%),
+                  linear-gradient(135deg, var(--pc-mint), var(--pc-sky));
+      border: 1px solid var(--pc-line);
+      display: grid;
+      place-items: center;
+      min-height: clamp(260px, 45vh, 560px);
+    }
+    .vs-hero-media .vs-media-note { font: 500 13px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; color: var(--pc-ink-muted); }
+
+    /* Accessibility and focus */
+    .vs-theme-pastel-corp :where(a, button, [tabindex]) { outline: none; }
+    .vs-theme-pastel-corp :where(a, button, [tabindex]):focus-visible { outline: 2px solid var(--pc-focus); outline-offset: 2px; }
+  </style>
+
+  <div class="vs-vacbeds-hero">
+    <div class="vs-hero-bg" aria-hidden="true"></div>
+
+    <div class="vs-hero-layout">
+      <!-- LEFT: Content -->
+      <div class="vs-hero-card">
+        <div class="vs-eyebrow">Vac Square • Vacbeds</div>
+        <h1 class="vs-title">Vacbeds, simplified</h1>
+        <p class="vs-sub">A crisp, modular build that’s easy to assemble, easy to clean, and engineered for a secure seal every time.</p>
+
+        <ul class="vs-points">
+          <li>Rigid PVC frame with snap-fit corners</li>
+          <li>Machine-washable bag with airtight port</li>
+          <li>Tool‑free assembly and breakdown</li>
+          <li>Sizes and colors to match your setup</li>
+        </ul>
+
+        <div class="vs-cta-row">
+          <a class="vs-btn" href="/shop">Shop vacbeds</a>
+          <a class="vs-btn" href="/tutorials">Setup tutorials</a>
+          <a class="vs-btn" href="/customdesigns">Custom designs</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Media / image placeholder -->
+      <figure class="vs-hero-media" role="img" aria-label="Vacbed product photography placeholder">
+        <figcaption class="vs-media-note">Add product photo or short demo clip here</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

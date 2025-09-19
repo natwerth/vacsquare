@@ -1,0 +1,163 @@
+<!-- VacSquare Sticky Header -->
+<header class="vs-header" role="banner">
+  <div class="vs-header__inner">
+    <a class="vs-brand" href="/" aria-label="VacSquare home">
+      <span class="vs-logo" aria-hidden="true">V²</span>
+      <span class="vs-wordmark">VacSquare</span>
+    </a>
+
+    <nav class="vs-nav" aria-label="Primary">
+      <ul class="vs-nav__list vs-nav__list--desktop">
+        <li><a href="/vacsquares">VacSquares</a></li>
+        <li><a href="/vacbeds">VacBeds</a></li>
+        <li><a href="/shop">Shop</a></li>
+        <li><a href="/tutorials">Tutorials</a></li>
+        <li><a href="/customdesigns">Custom Designs</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+
+      <button class="vs-burger" id="vs-burger" aria-expanded="false" aria-controls="vs-mobile" aria-label="Open menu">
+        <span class="vs-burger__bar" aria-hidden="true"></span>
+        <span class="vs-burger__bar" aria-hidden="true"></span>
+        <span class="vs-burger__bar" aria-hidden="true"></span>
+      </button>
+
+      <div class="vs-mobile" id="vs-mobile" hidden>
+        <ul class="vs-nav__list vs-nav__list--mobile">
+          <li><a href="/vacsquares">The VacSquare™</a></li>
+          <li><a href="/vacbeds">VacBeds</a></li>
+          <li><a href="/tutorials">Tutorials</a></li>
+          <li><a href="/customdesigns">Custom Designs</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/shop">Shop</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  :root{
+    --vs-header-h: 64px;
+    --vs-bg: #0a0a0b;
+    --vs-card: #121216;
+    --vs-text: #f6f6f8;
+    --vs-accent: #ff2fd1; /* hot magenta */
+    --vs-accent-2: #46c6ff; /* electric blue */
+    --vs-gloss: linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,0) 55%);
+    --vs-ring: 0 0 0 2px color-mix(in oklab, var(--vs-accent) 55%, white 0%);
+  }
+
+  .vs-header{ position: fixed; top: 0; left: 0; right: 0; z-index: 9999; isolation:isolate; backdrop-filter: saturate(140%) blur(10px); background:
+      radial-gradient(120% 120% at 10% -10%, rgba(70,198,255,.25), transparent 60%),
+      radial-gradient(120% 120% at 110% -20%, rgba(255,47,209,.22), transparent 60%),
+      color-mix(in oklab, var(--vs-bg) 94%, black 6%);
+    box-shadow: 0 2px 0 rgba(255,255,255,.04) inset, 0 1px 12px rgba(0,0,0,.35);
+  }
+  .vs-header__inner{ height: var(--vs-header-h); display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 clamp(16px, 4vw, 28px); }
+
+  /* Brand */
+  .vs-brand{ display:flex; align-items:center; gap:10px; color:var(--vs-text); text-decoration:none; }
+  .vs-logo{ width:32px; height:32px; border-radius:8px; display:grid; place-items:center; font-weight:800; background:linear-gradient(135deg, #ff2fd1, #46c6ff); color:#0c0c10; }
+  .vs-wordmark{ font-size: clamp(16px, 1.6vw, 18px); font-weight:700; }
+
+  /* Desktop nav */
+  .vs-nav{ display:flex; align-items:center; gap:12px; }
+  .vs-nav__list{ list-style:none; margin:0; padding:0; display:flex; gap:6px; }
+  .vs-nav__list--desktop a{ --pad:10px; display:inline-flex; align-items:center; padding:8px var(--pad); border-radius:10px; text-decoration:none; color:var(--vs-text); font-weight:600; position:relative; }
+  .vs-nav__list--desktop a::after{ content:""; position:absolute; left:10px; right:10px; bottom:6px; height:2px; border-radius:2px; background: linear-gradient(90deg, var(--vs-accent), var(--vs-accent-2)); transform:scaleX(0); transform-origin:left; transition:transform .22s ease; }
+  .vs-nav__list--desktop a:hover::after, .vs-nav__list--desktop a:focus-visible::after{ transform:scaleX(1); }
+  .vs-nav__list--desktop a:hover{ background:rgba(255,255,255,.06); }
+  .vs-nav__list--desktop a:focus-visible{ outline:none; box-shadow: var(--vs-ring); }
+
+  /* Burger */
+  .vs-burger{ display:none; width:46px; height:38px; border-radius:10px; border:none; background:transparent; position:relative; cursor:pointer; }
+  .vs-burger:focus-visible{ outline:none; box-shadow: var(--vs-ring); }
+  .vs-burger__bar{ display:block; height:2px; width:24px; margin:5px auto; background:var(--vs-text); border-radius:2px; transition:transform .2s ease, opacity .2s ease; }
+
+  /* Mobile panel */
+  .vs-mobile{ position:fixed; top:var(--vs-header-h); left:0; right:0; background: color-mix(in oklab, var(--vs-card) 90%, black 10%); border-top:1px solid rgba(255,255,255,.06); box-shadow: 0 12px 28px rgba(0,0,0,.45); }
+  .vs-nav__list--mobile{ flex-direction:column; padding:8px; }
+  .vs-nav__list--mobile a{ display:block; padding:14px 14px; border-radius:10px; text-decoration:none; color:var(--vs-text); font-weight:650; background:
+      linear-gradient(180deg, rgba(255,255,255,.08), transparent 55%);
+  }
+  .vs-nav__list--mobile a + a{ margin-top:6px; }
+  .vs-nav__list--mobile a:active{ transform: translateY(1px); }
+  .vs-nav__list--mobile a:hover{ background: rgba(255,255,255,.12); }
+
+  /* Layout tweaks */
+  @media (max-width: 880px){
+    .vs-nav__list--desktop{ display:none; }
+    .vs-burger{ display:inline-block; }
+  }
+
+  /* Reduce motion for those who want it */
+  @media (prefers-reduced-motion: reduce){
+    .vs-nav__list--desktop a::after{ transition:none; }
+    .vs-burger__bar{ transition:none; }
+  }
+
+  /* Reset default body margin so header is flush to the very top */
+  html, body { height: 100%; }
+  body{ margin:0; padding-top: var(--vs-header-h); }
+
+  /* Make the main area fill the viewport minus the sticky header */
+  main{ min-height: calc(100dvh - var(--vs-header-h)); display:block; }
+
+  /* Prefer small viewport units on browsers that support them */
+  @supports (height: 100svh){
+    main{ min-height: calc(100svh - var(--vs-header-h)); }
+  }
+
+  /* Anchor jumps account for sticky header */
+  :is(h1,h2,h3,h4,h5,h6){ scroll-margin-top: calc(var(--vs-header-h) + 12px); }
+</style>
+
+<script>
+  (function(){
+    const header = document.querySelector('.vs-header');
+    const burger = document.getElementById('vs-burger');
+    const panel  = document.getElementById('vs-mobile');
+
+    function open(){
+      burger.setAttribute('aria-expanded', 'true');
+      burger.setAttribute('aria-label', 'Close menu');
+      panel.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      burger.setAttribute('aria-expanded', 'false');
+      burger.setAttribute('aria-label', 'Open menu');
+      panel.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    burger.addEventListener('click', () => {
+      const expanded = burger.getAttribute('aria-expanded') === 'true';
+      expanded ? close() : open();
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if(panel.hidden) return;
+      const within = header.contains(e.target);
+      const insidePanel = panel.contains(e.target);
+      if(!within && !insidePanel) close();
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') close();
+    });
+
+    // Keep panel state sane on resize
+    let lastW = window.innerWidth;
+    window.addEventListener('resize', () => {
+      const now = window.innerWidth;
+      if(now !== lastW){
+        if(now > 880) close();
+        lastW = now;
+      }
+    });
+  })();
+</script>
