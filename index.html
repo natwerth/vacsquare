@@ -8,21 +8,20 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
   <!-- Global styles first -->
-  <link rel="stylesheet" href="/assets/styles/styles.css" />
+  <link rel="stylesheet" href="/assets/styles/00-settings-base.css" />
+  <link rel="stylesheet" href="/assets/styles/01-utilities.css" />
+  <link rel="stylesheet" href="/assets/styles/02-components.css" />
+  <link rel="stylesheet" href="/assets/styles/03-header.css" />
+  <link rel="stylesheet" href="/assets/styles/templates.css" />
 
 </head>
 <body>
   <!-- Include the header partial -->
-  <div data-include="/partials/header.html"></div>
+  <div data-include="/assets/header/header.html"></div>
   <!-- The tiny include loader -->
   <script type="module" src="assets/includes.js" defer></script>
 
-
-
-<section data-include="/partials/home/homehero.html"></section>
-<section data-include="/partials/home/homeimages.html"></section>
-<section data-include="/partials/footer.html"></section>
-
+<section data-include="/assets/footer/footer.html"></section>
 
 </body>
 </html>

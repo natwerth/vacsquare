@@ -1,0 +1,70 @@
+<style>
+  /* Local footer styles (scoped) */
+  .site-footer { border-top: 1px solid var(--role-border); background: var(--role-surface); }
+  .site-footer__inner { max-width: var(--container-lg); margin-inline: auto; padding: var(--space-6); }
+
+  .footer-cols { display: grid; gap: var(--space-6); }
+  @media (min-width: 768px) { .footer-cols { grid-template-columns: repeat(3, 1fr); } }
+
+  .footer-col h4 { margin-bottom: var(--space-3); }
+  .footer-col a { text-decoration: none; color: inherit; }
+  .footer-col a:hover { text-decoration: underline; text-decoration-thickness: 2px; }
+  .footer-col li + li { margin-top: var(--space-2); }
+
+  .footer-bottom { display: flex; align-items: center; justify-content: space-between; gap: var(--space-6); flex-wrap: wrap; border-top: 1px solid var(--role-border); padding-top: var(--space-5); }
+  .footer-bottom p { font-size: small; color: var(--role-text-muted); }
+
+  .footer-credit { display: grid; place-items: center; padding-top: var(--space-5); color: var(--clr-slate-200); }
+  .footer-credit svg { inline-size: 56px; block-size: auto; color: currentColor; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-social a { transition: none; }
+  }
+</style>
+
+<!-- VacSquare Footer -->
+<footer class="site-footer" role="contentinfo">
+  <div class="site-footer__inner">
+    <div class="footer-cols">
+      <div class="footer-col">
+        <h4>Products</h4>
+        <ul>
+          <li><a href="/vacsquares">VacSquares</a></li>
+          <li><a href="/vacbeds">VacBeds</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="/about">About</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="#">Twitter</a></li>
+          <li><a href="#">Bluesky</a></li>
+          <li><a href="#">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom site-footer__inner">
+    <p>© <span id="year"></span> VacSquare. All rights reserved.</p>
+  </div>
+  <div class="footer-credit site-footer__inner">
+    <a href="https://natwerth.com" target="_blank" rel="noopener" aria-label="Made by Nat Werth">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -1 152.5 96.57" role="img" aria-label="Nat Werth Logo">
+        <title>Nat Werth Logo</title>
+        <path fill="currentColor" d="M13.5,30.56c18,0,27,18,27,18,0,0-9-18,9-18s18,63,0,63-27-27-27-27c0,0,9,27-9,27s-18-63,0-63h0Z"/>
+        <path fill="currentColor" d="M148.5,30.56c0,18-18,18-18,18,0,0,9,54-18,45,0,0,18-63-18-72h0c9-9,54-9,54,9Z"/>
+        <path fill="currentColor" d="M68.79,0s2.6,20.33,21.59,21.55c0,0-18.87,2.24-21.59,21.55,0,0-2.68-19.69-21.59-21.55,0,0,17.69-2.01,21.59-21.55Z"/>
+        <path fill="currentColor" d="M91.22,38.8s1.11,8.2,9.22,8.7c0,0-8.06.91-9.22,8.7,0,0-1.15-7.95-9.22-8.7,0,0,7.56-.81,9.22-8.7Z"/>
+      </svg>
+    </a>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>

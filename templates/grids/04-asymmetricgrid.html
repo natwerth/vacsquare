@@ -1,0 +1,111 @@
+<section class="vs-theme-pastel-corp" data-vs-theme="pastel-corp" aria-label="Vacbeds hero">
+
+  <div class="vs-vacbeds-hero">
+    <div class="vs-hero-bg" aria-hidden="true"></div>
+    
+    <div class="vs-tiles">
+      
+      <section>
+        <h2>Asymmetric Grid</h2>
+        <p class="vs-note">Hero-style lead card spans the right rail; left rail stacks independently.</p>
+
+        <div class="vs-grid is-asym">
+          <!-- Left rail (independent stack) -->
+          <div class="asym-left">
+            <article class="vs-card">
+              <header>
+                <div class="vs-eyebrow">Jump to</div>
+              </header>
+              <div class="vs-cta-row">
+                <a class="vs-btn" href="#section-1">Section 1</a>
+                <a class="vs-btn" href="#section-2">Section 2</a>
+                <a class="vs-btn" href="#section-3">Section 3</a>
+              </div>
+            </article>
+            <!-- add more left-rail cards here if you want -->
+          </div>
+
+          <!-- Right rail (independent stack) -->
+          <div class="asym-right">
+            <article id="section-1" class="vs-card is-lead">
+              <header>
+                <div class="vs-eyebrow"></div>
+                <h3 class="vs-title">Section 1</h3>
+              </header>
+              <p class="vs-sub">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <ul class="vs-points">
+                <li>Bold background works behind cards.</li>
+                <li>Sharp corners keep it corporate.</li>
+                <li>Buttons inherit accessible focus.</li>
+                <li>Bold background works behind cards.</li>
+                <li>Sharp corners keep it corporate.</li>
+                <li>Buttons inherit accessible focus.</li>
+              </ul>
+              <div class="vs-cta-row">
+                <a class="vs-btn is-primary" href="#">Get started</a>
+                <a class="vs-btn" href="#">More info</a>
+              </div>
+            </article>
+
+            <article id="section-2" class="vs-card">
+              <header>
+                <div class="vs-eyebrow"></div>
+                <h3 class="vs-title">Section 2</h3>
+              </header>
+              <p class="vs-sub">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec ullamcorper nulla non metus auctor fringilla.</p>
+              <ul class="vs-points">
+                <li>Bold background works behind cards.</li>
+                <li>Sharp corners keep it corporate.</li>
+                <li>Buttons inherit accessible focus.</li>
+              </ul>
+            </article>
+            <article id="section-3" class="vs-card">
+              <header>
+                <div class="vs-eyebrow">Safety Notice</div>
+                <h3 class="vs-title">Section 3</h3>
+              </header>
+              <div class="safety-container">
+                <p class="vs-sub safety-lead">
+                  ⚠️ Breathplay can be extremely dangerous. Never do it alone.
+                </p>
+                <ul class="vs-points safety-points">
+                  <li>Always communicate and establish safety signals.</li>
+                  <li>Use caution and avoid prolonged restriction of airflow.</li>
+                  <li>Your safety and well-being come first—no exceptions.</li>
+                </ul>
+              </div>
+            </article>
+          </div>
+        </div>
+
+<style>
+  :root { --site-header-h: 64px; }
+  /* Sticky left rail on desktop */
+  @media (min-width: 770px) {
+    .vs-grid.is-asym { align-items: start; }
+    .asym-left { position: sticky; top: var(--vs-sticky-top, calc(var(--site-header-h, 64px) + 12px)); align-self: start; z-index: 1; }
+    .asym-left > .vs-card { position: relative; }
+  }
+
+  /* Safety container (muted yellow theme) */
+  .safety-container {
+    --warn-bg: #fffcef;         /* very light, muted yellow */
+    --warn-border: #fff6cf;     /* desaturated golden */
+    --warn-text: #2b2b2b;
+    background: var(--warn-bg);
+    border: 1.5px solid var(--warn-border);
+    padding: clamp(12px, 1.5vw, 16px);
+    margin-block: clamp(8px, 1vw, 12px);
+    overflow: hidden; /* ensures inner radius rendering stays crisp */
+  }
+  .safety-lead { color: var(--warn-text); font-weight: 600; margin-top: 0; }
+  .safety-points { margin-bottom: 0; }
+  .safety-points li { color: var(--warn-text); }
+
+  /* Ensure the card gives the container breathing room so corners are visible */
+  #section-3.vs-card { padding-bottom: clamp(12px, 1.2vw, 16px); }
+</style>
+      </section>
+    </div>
+  </div>
+</section>

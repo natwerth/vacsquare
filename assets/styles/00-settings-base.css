@@ -1,0 +1,268 @@
+/*
+  00-settings-base.css
+  Single source of truth for: 
+  
+  1. Design Tokens (variables) 
+  2. Reset (browser consistency) 
+  3. Element Defaults (html tags)
+
+  Kept boring on purpose.
+*/
+
+/* =========================================
+   1. Design Tokens
+   ========================================= */
+:root {
+  /* Color palette: neutrals + muted pastels */
+  /* Neutrals */
+  --clr-ink-900: #1d1f23;
+  --clr-ink-700: #2b2f36;
+  --clr-ink-500: #5c6370;
+  --clr-ink-300: #9aa3af;
+  --clr-slate-200: #e6e8ec;
+  --clr-canvas: #f8f9fb;
+  --clr-white: #ffffff;
+
+  /* Role colors */
+  --role-bg: var(--clr-canvas);
+  --role-surface: var(--clr-white);
+  --role-surface-alt: var(--clr-slate-200);
+  --role-text: var(--clr-ink-900);
+  --role-text-muted: var(--clr-ink-500);
+  --role-border: #d9dde3;
+
+  --role-brand: var(--clr-peri-200);
+  --role-accent: var(--clr-mint-200);
+  --role-success: var(--clr-mint-200);
+  --role-warning: #ffe9b5; /* gentle amber */
+  --role-danger: #ffd0d6;  /* gentle rose */
+  --role-scrim: rgba(0,0,0,0.35);
+
+  /* Focus ring */
+  --focus-ring-color: #355cff; /* accessible on pastels */
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 2px;
+  --focus-ring-style: solid;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, Noto Sans, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Type scale */
+  --text-xs: clamp(0.78rem, 0.73rem + 0.2vw, 0.86rem);
+  --text-sm: clamp(0.88rem, 0.83rem + 0.2vw, 0.96rem);
+  --text-md: clamp(1rem, 0.95rem + 0.2vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.35vw, 1.25rem);
+  --text-xl: clamp(1.35rem, 1.25rem + 0.5vw, 1.6rem);
+  --text-2xl: clamp(1.7rem, 1.5rem + 1vw, 2.1rem);
+  --text-3xl: clamp(2.1rem, 1.8rem + 1.6vw, 2.6rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-loose: 1.7;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* Spacing scale (t-shirt sizes) */
+  --space-0: 0;
+  --space-1: 2px;
+  --space-2: 4px;
+  --space-3: 8px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-7: 24px;
+  --space-8: 32px;
+  --space-9: 40px;
+  --space-10: 48px;
+  --space-12: 64px;
+
+  /* Radii */
+  --radius-soft: 8px;
+  --radius-pill: 999px;
+
+  /* Shadows (two elevations only) */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.01), 0 0 0 1px rgba(0,0,0,0.005);
+  --shadow-2: 0 8px 20px rgba(0,0,0,0.10), 0 2px 6px rgba(0,0,0,0.06);
+
+  /* Breakpoints */
+  --bp-sm: 480px;
+  --bp-md: 768px;
+  --bp-lg: 1024px;
+  --bp-xl: 1280px;
+
+  /* Containers */
+  --container-sm: 640px;
+  --container-md: 860px;
+  --container-lg: 1120px;
+
+  /* Z-index steps */
+  --z-1: 1;
+  --z-10: 10;
+  --z-100: 100;
+  --z-1000: 1000;
+}
+
+
+
+/* =========================================
+   2. Reset / Normalize
+   Based on a minimal modern reset.
+   ========================================= */
+* {
+  box-sizing: border-box;
+}
+
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html,
+body,
+h1, h2, h3, h4, h5, h6,
+p, figure, blockquote, dl, dd {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  color-scheme: light;
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--role-bg);
+  color: var(--role-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: var(--leading-normal);
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* Remove default list styles on ul, ol */
+ul, ol {
+  list-style: none;
+  padding: 0;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration-color: currentColor;
+  text-underline-offset: 2px;
+}
+
+/* Buttons and form controls inherit fonts */
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+}
+
+/* Fieldset/legend sane defaults */
+fieldset { border: 0; margin: 0; padding: 0; }
+legend { padding: 0; }
+
+/* Make forms and media responsive by default */
+iframe, embed, object { max-width: 100%; }
+
+/* Tables: border-collapse by default */
+table { border-collapse: collapse; border-spacing: 0; width: 100%; }
+th, td { padding: 0; }
+
+/* Text selection */
+::selection {
+  background: var(--role-brand);
+  color: var(--role-ink, var(--role-text));
+}
+
+/* =========================================
+   3. Element Defaults
+   ========================================= */
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+}
+
+h1 { font-size: var(--text-3xl); }
+h2 { font-size: var(--text-2xl); }
+h3 { font-size: var(--text-xl); }
+h4 { font-size: var(--text-lg); }
+h5 { font-size: var(--text-md); }
+h6 { font-size: var(--text-sm); }
+
+p { font-size: var(--text-md); }
+small { font-size: var(--text-sm); }
+
+/* Images and media should not overflow containers */
+img { height: auto; border-style: none; }
+
+/* Forms */
+label { font-size: var(--text-sm); }
+input, textarea, select {
+  background: var(--role-surface);
+  border: 1px solid var(--role-border);
+  color: var(--role-text);
+}
+
+/* Focus styles (accessible, high-contrast ring) */
+:where(:focus-visible) {
+  outline: var(--focus-ring-width) var(--focus-ring-style) var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Disabled & readonly affordances */
+:where([disabled], [aria-disabled="true"]) {
+  cursor: not-allowed;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================
+   NEED TO INTEGRATE
+   ========================================= */
+
+/* Header tokens (aliased to global roles & scales) */
+:root {
+  --hdr-bg: var(--role-surface);
+  --hdr-fg: var(--role-text);
+  --hdr-accent: var(--role-text);
+  --hdr-muted: var(--role-text-muted);
+  --hdr-border: var(--role-border);
+  --hdr-scrim: var(--role-scrim);
+  --hdr-panel-bg: var(--role-surface);
+
+  --hdr-h: 64px;                 /* header height */
+  --hdr-br: var(--radius-soft);  /* panel radius */
+  --hdr-pad: var(--space-5);     /* inline padding */
+  --hdr-gap: var(--space-4);     /* gaps */
+  --hdr-maxw: var(--container-lg); /* content max width */
+  --hdr-bp: 900px;               /* desktop breakpoint for header */
+  --hdr-z: var(--z-1000);        /* header z-index */
+}
